@@ -1,0 +1,23 @@
+{
+  "team_id": "your-team-id",
+  "domain": "coding_assistants",
+  "language_scope": ["en"],
+  "african_alpha_claim": false,
+  "budget_laptop_claim": true,
+  "cross_disciplinary_pairing": {
+    "discipline": "education",
+    "load_bearing": true,
+    "description": "Brief description of how your model serves a real-world domain."
+  },
+  "model": {
+    "name": "YourModel-Q4_K_M",
+    "runtime": "llama.cpp",
+    "quantization": "GGUF Q4_K_M",
+    "parameters_estimate": "1.1B",
+    "packaging": "binary_bundle"
+  },
+  "_runtime": {
+    "model_path": "model/your-model.gguf",
+    "docker_image": "your-team/model:latest"
+  }
+}
