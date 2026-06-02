@@ -10,14 +10,14 @@
     "description": "Brief description of how your model serves a real-world domain."
   },
   "model": {
-    "name": "YourModel-Q4_K_M",
+    "name": "SmolLM2-135M-Instruct-Q4_K_M",
     "runtime": "llama.cpp",
     "quantization": "GGUF Q4_K_M",
-    "parameters_estimate": "1.1B",
+    "parameters_estimate": "135M",
     "packaging": "binary_bundle"
   },
   "_runtime": {
-    "model_path": "model/your-model.gguf",
+    "model_path": "model/SmolLM2-135M-Instruct-Q4_K_M.gguf",
     "docker_image": "your-team/model:latest"
   }
 }
