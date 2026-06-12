@@ -9,15 +9,23 @@
     "load_bearing": true,
     "description": "Brief description of how your model serves a real-world domain."
   },
+  "test_prompts": [
+    {
+      "prompt_id": "tp_001",
+      "prompt": "Write a Python function that reads a CSV file and returns the column with the highest mean value."
+    },
+    {
+      "prompt_id": "tp_002",
+      "prompt": "Explain the difference between a list and a tuple in Python, and give one example where each is the better choice."
+    }
+  ],
   "model": {
     "name": "SmolLM2-135M-Instruct-Q4_K_M",
     "runtime": "llama.cpp",
     "quantization": "GGUF Q4_K_M",
-    "parameters_estimate": "135M",
-    "packaging": "binary_bundle"
+    "parameters_estimate": "135M"
   },
   "_runtime": {
-    "model_path": "model/SmolLM2-135M-Instruct-Q4_K_M.gguf",
-    "docker_image": "your-team/model:latest"
+    "model_path": "model/SmolLM2-135M-Instruct-Q4_K_M.gguf"
   }
 }
