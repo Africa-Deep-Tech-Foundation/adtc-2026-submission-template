@@ -1,37 +1,37 @@
 {
-  "team_id": "your-team-id",
-  "domain": "coding_assistants",
+  "team_id": "FE/23/27521206",
+  "domain": "math_scientific_reasoning",
   "language_scope": ["en"],
   "african_alpha_claim": false,
   "budget_laptop_claim": true,
   "submitter": {
-    "name": "your-name",
-    "email": "your-email@domain.com",
-    "github_handle": "your-github"
+    "name": "Abubakar Umar",
+    "email": "umarabubakarg2018@gmail.com",
+    "github_handle": "oumar-code"
   },
   "cross_disciplinary_pairing": {
     "discipline": "education",
     "load_bearing": true,
-    "description": "Brief description of how your model serves a real-world domain."
+    "description": "Offline WAEC Mathematics tutor for JSS3/SSS students in rural Nigeria, running on solar-powered EdgeHub laptops with no internet connectivity."
   },
   "test_prompts": [
     {
       "prompt_id": "tp_001",
-      "prompt": "Write a Python function that reads a CSV file and returns the column with the highest mean value."
+      "prompt": "A student scored 72 out of 90 in a WAEC Mathematics paper. Express the score as a percentage, correct to one decimal place, and state whether the student passed given that the pass mark is 50%."
     },
     {
       "prompt_id": "tp_002",
-      "prompt": "Explain the difference between a list and a tuple in Python, and give one example where each is the better choice."
+      "prompt": "Factorise completely: 3x² + 11x − 4, then solve the equation 3x² + 11x − 4 = 0."
     }
   ],
   "model": {
-    "name": "SmolLM2-135M-Instruct-Q4_K_M",
+    "name": "Phi-3.5-mini-instruct-Q4_K_M",
     "runtime": "llama.cpp",
     "quantization": "GGUF Q4_K_M",
-    "parameters_estimate": "135M",
+    "parameters_estimate": "3.8B",
     "packaging": "binary_bundle"
   },
   "_runtime": {
-    "model_path": "model/SmolLM2-135M-Instruct-Q4_K_M.gguf"
+    "model_path": "model/Phi-3.5-mini-instruct-Q4_K_M.gguf"
   }
 }
