@@ -1,27 +1,29 @@
 {
   "team_id": "your-team-id",
-  "domain": "coding_assistants",
-  "language_scope": ["en"],
+  "domain": "healthcare_medical",
+  "language_scope": [
+    "en"
+  ],
   "african_alpha_claim": false,
   "budget_laptop_claim": true,
   "submitter": {
     "name": "your-name",
     "email": "your-email@domain.com",
-    "github_handle": "your-github"
+    "github_handle": "christopherchomba74-dotcom"
   },
   "cross_disciplinary_pairing": {
-    "discipline": "education",
+    "discipline": "healthcare",
     "load_bearing": true,
-    "description": "Brief description of how your model serves a real-world domain."
+    "description": "An offline healthcare education and reference assistant designed for nursing and healthcare learners in low-connectivity environments."
   },
   "test_prompts": [
     {
       "prompt_id": "tp_001",
-      "prompt": "Write a Python function that reads a CSV file and returns the column with the highest mean value."
+      "prompt": "Explain hypovolemic shock to a first-year nursing student. Cover its definition, common causes, major signs and symptoms, and why those signs occur physiologically."
     },
     {
       "prompt_id": "tp_002",
-      "prompt": "Explain the difference between a list and a tuple in Python, and give one example where each is the better choice."
+      "prompt": "Explain high blood pressure to a person with no medical background using simple language. Explain what it means, why it matters, common risk factors, and why regular monitoring is important."
     }
   ],
   "model": {
