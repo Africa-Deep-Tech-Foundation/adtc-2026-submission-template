@@ -14,3 +14,6 @@ __pycache__/
 # Local profiler output
 submission.json
 audit.json
+submission-*.json
+audit-*.json
+verdict.json
