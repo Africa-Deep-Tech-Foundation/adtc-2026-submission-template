@@ -1,37 +1,37 @@
 {
-  "team_id": "your-team-id",
-  "domain": "coding_assistants",
+  "team_id": "1143733",
+  "domain": "healthcare_medical",
   "language_scope": ["en"],
   "african_alpha_claim": false,
   "budget_laptop_claim": true,
   "submitter": {
-    "name": "your-name",
-    "email": "your-email@domain.com",
-    "github_handle": "your-github"
+    "name": "Simon Nungwa",
+    "email": "simonnungwa99@gmail.com",
+    "github_handle": "Laplace0xx"
   },
   "cross_disciplinary_pairing": {
     "discipline": "education",
     "load_bearing": true,
-    "description": "Brief description of how your model serves a real-world domain."
+    "description": "Offline stroke triage and decision support (FAST protocol, hypertension, referral guidance) that simultaneously trains community health workers and caregivers in low-resource African primary health centers through structured, plain-language clinical explanations and comprehension checks."
   },
   "test_prompts": [
     {
       "prompt_id": "tp_001",
-      "prompt": "Write a Python function that reads a CSV file and returns the column with the highest mean value."
+      "prompt": "You are a clinical decision support assistant for nurses and community health workers at a small primary health center in a rural African town. There is no CT scanner, no neurologist, and no reliable power. A 58-year-old woman, known hypertensive on amlodipine, presents with sudden right-sided facial droop, right-arm weakness, and slurred speech that started 40 minutes ago. Walk through the FAST assessment step by step, state what each finding means, give an urgency classification, and list clear prioritized actions the health worker should take now, including referral timing, positioning, blood pressure management, and what not to do. Keep it practical for a low-resource setting."
     },
     {
       "prompt_id": "tp_002",
-      "prompt": "Explain the difference between a list and a tuple in Python, and give one example where each is the better choice."
+      "prompt": "You are training a community health worker in a low-resource African setting to teach families how to prevent and recognize stroke. Explain in plain language suitable for a caregiver with no medical background: what a stroke is, the main risk factors and how to reduce them (blood pressure, diet, salt, exercise, smoking), the warning signs using a simple memorable acronym, and what a family should do the moment they suspect a stroke. End with 3 questions you would ask the trainee to check their understanding."
     }
   ],
   "model": {
-    "name": "SmolLM2-135M-Instruct-Q4_K_M",
+    "name": "Qwen2.5-1.5B-Instruct-Q4_K_M",
     "runtime": "llama.cpp",
     "quantization": "GGUF Q4_K_M",
-    "parameters_estimate": "135M",
+    "parameters_estimate": "1.8B",
     "packaging": "binary_bundle"
   },
   "_runtime": {
-    "model_path": "model/SmolLM2-135M-Instruct-Q4_K_M.gguf"
+    "model_path": "model/qwen2.5-1.5b-instruct-q4_k_m.gguf"
   }
 }
