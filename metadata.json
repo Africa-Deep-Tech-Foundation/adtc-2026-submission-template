@@ -1,5 +1,5 @@
 {
-  "team_id": "your-team-id",
+  "team_id": "1150885",
   "domain": "healthcare_medical",
   "language_scope": [
     "en"
@@ -7,8 +7,8 @@
   "african_alpha_claim": false,
   "budget_laptop_claim": true,
   "submitter": {
-    "name": "your-name",
-    "email": "your-email@domain.com",
+    "name": "christopher chomba",
+    "email": "christopherchomba74@gmail.com",
     "github_handle": "christopherchomba74-dotcom"
   },
   "cross_disciplinary_pairing": {
@@ -19,21 +19,21 @@
   "test_prompts": [
     {
       "prompt_id": "tp_001",
-      "prompt": "Explain hypovolemic shock to a first-year nursing student. Cover its definition, common causes, major signs and symptoms, and why those signs occur physiologically."
+      "prompt": "A patient presents with fatigue, dizziness, and shortness of breath on exertion. Explain the common clinical causes that could be considered, what information a nurse should assess, and which findings would require urgent escalation. Do not diagnose the patient."
     },
     {
       "prompt_id": "tp_002",
-      "prompt": "Explain high blood pressure to a person with no medical background using simple language. Explain what it means, why it matters, common risk factors, and why regular monitoring is important."
+      "prompt": "Explain high blood pressure to a patient who has just been diagnosed. Use simple language to explain what it means, why it matters, common risk factors, lifestyle measures that may help, and warning signs that require urgent medical attention. Do not assume or provide a personal diagnosis."
     }
   ],
   "model": {
-    "name": "SmolLM2-135M-Instruct-Q4_K_M",
+    "name": "Qwen2.5-3B-Instruct-Q4_K_M",
     "runtime": "llama.cpp",
     "quantization": "GGUF Q4_K_M",
-    "parameters_estimate": "135M",
+    "parameters_estimate": "3B",
     "packaging": "binary_bundle"
   },
   "_runtime": {
-    "model_path": "model/SmolLM2-135M-Instruct-Q4_K_M.gguf"
+    "model_path": "model/Qwen2.5-3B-Instruct-Q4_K_M.gguf"
   }
 }
