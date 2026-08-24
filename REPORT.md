@@ -1,6 +1,6 @@
 # Technical Report — VECTOR Afya
 
-**Team ID:** 1150885
+**Team ID:** https://devpost.com/software/vector-afya/joins/7UunW5dbmjXFyUTj114FMw
 **Domain:** Healthcare / Medical
 **Model:** Qwen2.5-3B-Instruct-Q4_K_M
 **Runtime:** llama.cpp
