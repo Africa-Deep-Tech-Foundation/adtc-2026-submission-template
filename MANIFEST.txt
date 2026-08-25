@@ -1,0 +1,31 @@
+VECTOR Afya MVP build artifact
+
+Core:
+  vector_afya/__init__.py
+  vector_afya/router.py
+  vector_afya/prompts.py
+  vector_afya/safety.py
+  vector_afya/llm.py
+  vector_afya/app.py
+
+Tests:
+  tests/test_vector_afya.py
+
+Documentation:
+  ARCHITECTURE.md
+  README_VECTOR_AFYA.md
+
+Submission configuration:
+  metadata.json
+  download_model.sh
+
+Utility:
+  APPLY_TO_REPO.sh
+
+Validation completed:
+  - Python compileall passed
+  - 6 automated tests passed
+  - metadata.json is valid JSON
+  - exactly two test prompts are present
+  - metadata runtime model path matches download script/model adapter
+  - Qwen2.5-3B-Instruct Q4_K_M SHA-256 is pinned to 626b4a6678b86442240e33df819e00132d3ba7dddfe1cdc4fbb18e0a9615c62d

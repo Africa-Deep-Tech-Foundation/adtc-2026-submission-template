@@ -1,37 +1,39 @@
 {
-  "team_id": "your-team-id",
-  "domain": "coding_assistants",
-  "language_scope": ["en"],
+  "team_id": "https://devpost.com/software/vector-afya/joins/7UunW5dbmjXFyUTj114FMw",
+  "domain": "healthcare_medical",
+  "language_scope": [
+    "en"
+  ],
   "african_alpha_claim": false,
   "budget_laptop_claim": true,
   "submitter": {
-    "name": "your-name",
-    "email": "your-email@domain.com",
-    "github_handle": "your-github"
+    "name": "christopher chomba",
+    "email": "christopherchomba74@gmail.com",
+    "github_handle": "christopherchomba74-dotcom"
   },
   "cross_disciplinary_pairing": {
-    "discipline": "education",
+    "discipline": "healthcare",
     "load_bearing": true,
-    "description": "Brief description of how your model serves a real-world domain."
+    "description": "An offline healthcare education and reference assistant designed for nursing and healthcare learners in low-connectivity environments."
   },
   "test_prompts": [
     {
       "prompt_id": "tp_001",
-      "prompt": "Write a Python function that reads a CSV file and returns the column with the highest mean value."
+      "prompt": "A patient presents with fatigue, dizziness, and shortness of breath on exertion. Explain the common clinical causes that could be considered, what information a nurse should assess, and which findings would require urgent escalation. Do not diagnose the patient."
     },
     {
       "prompt_id": "tp_002",
-      "prompt": "Explain the difference between a list and a tuple in Python, and give one example where each is the better choice."
+      "prompt": "Explain high blood pressure to a patient who has just been diagnosed. Use simple language to explain what it means, why it matters, common risk factors, lifestyle measures that may help, and warning signs that require urgent medical attention. Do not assume or provide a personal diagnosis."
     }
   ],
   "model": {
-    "name": "SmolLM2-135M-Instruct-Q4_K_M",
+    "name": "Qwen2.5-3B-Instruct-Q4_K_M",
     "runtime": "llama.cpp",
     "quantization": "GGUF Q4_K_M",
-    "parameters_estimate": "135M",
+    "parameters_estimate": "3B",
     "packaging": "binary_bundle"
   },
   "_runtime": {
-    "model_path": "model/SmolLM2-135M-Instruct-Q4_K_M.gguf"
+    "model_path": "model/Qwen2.5-3B-Instruct-Q4_K_M.gguf"
   }
 }
