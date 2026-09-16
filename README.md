@@ -13,6 +13,8 @@ Before submitting, confirm every item:
 - [ ] Your repository is **public** on GitHub
 - [ ] `metadata.json` is fully filled in — no placeholder values remain
 - [ ] `metadata.json` contains exactly **2 test prompts** in the `test_prompts` array, written for your chosen domain
+- [ ] `download_model.sh` has only `MODEL_FILE` and `MODEL_URL` edited — no `[YOUR_...]` placeholders remain, and nothing else in the file was changed
+- [ ] `MODEL_URL` points to an exact, pinned commit/release — not a mutable branch like `main`
 - [ ] `download_model.sh` successfully downloads your model to `model/`
 - [ ] The downloaded file is a valid **GGUF format** (`.gguf`) weight file
 - [ ] `model/*.gguf` is listed in `.gitignore` — do **not** commit large weight files
@@ -107,14 +109,17 @@ Fill in every field. No field should remain at its placeholder value.
 
 This script **must** download your model weight file to the `model/` directory.
 
+Only edit the `MODEL_FILE` and `MODEL_URL` values near the top of the file — replace `[YOUR_MODEL_FILE_NAME]` and `[YOUR_MODEL_URL]` with your own. Every other line (the idempotency check, the download/retry logic) must stay exactly as provided. The evaluator reads this script's literal `MODEL_URL` assignment directly — it never executes your script on judging hardware — so changes outside those two values, or anything that isn't a plain, static string (shell commands, variables, string concatenation), will make your submission fail to prepare.
+
 Rules:
 - Must be idempotent — safe to run multiple times without re-downloading.
 - Must work without any credentials — your weights must be publicly accessible.
 - The downloaded file path must exactly match `_runtime.model_path` in `metadata.json`.
+- `MODEL_URL` must point to an exact, immutable file — pin it to a specific commit or release, never a mutable branch/tag like `main` or `latest`. On Hugging Face, replace `main` in the URL with the exact commit SHA from your repo's file history (click "History" on the file, copy the commit hash). This guarantees the file you submitted can never change after judging begins.
 
 Recommended hosting options for your weights:
 - [Hugging Face](https://huggingface.co) — public model repos (free, best for GGUF files)
-- GitHub Release Assets — attach the `.gguf` file to a GitHub Release
+- GitHub Release Assets — attach the `.gguf` file to a GitHub Release (already immutable once published — no separate pinning needed)
 - Any stable public URL (GCS public bucket, S3 public object, etc.)
 
 ---
