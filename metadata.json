@@ -14,6 +14,12 @@
     "load_bearing": true,
     "description": "Brief description of how your model serves a real-world domain."
   },
+  "provenance": {
+    "base_model_source": "huggingface:HuggingFaceTB/SmolLM2-135M-Instruct",
+    "base_model_commit_sha": "3b3e0a7f0c9e8b1a2d4c5f6e7d8c9b0a1f2e3d4c",
+    "fine_tuning_method": "none",
+    "training_datasets": []
+  },
   "test_prompts": [
     {
       "prompt_id": "tp_001",

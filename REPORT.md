@@ -24,6 +24,23 @@ Describe the problem your model addresses, the target user group, and why runnin
 
 ---
 
+## Model Provenance
+
+<!-- Where did your model actually come from? This must match the `provenance` object in metadata.json. -->
+
+- **Base model source:** e.g. `huggingface:microsoft/Phi-3-mini-4k-instruct-gguf`
+- **Base model commit SHA:** the exact commit you started from (see README's Model Provenance section for how this differs from the download-pin commit in `download_model.sh`)
+- **Fine-tuning method:** `none` / `prompt_engineering` / `lora` / `qlora` / `full_fine_tune`
+- **Training datasets:** name(s) and source(s), or "N/A — used stock model as-is"
+
+If you fine-tuned (method is not `none`), include a before/after comparison showing what changed:
+
+<!-- e.g. a short table or 2-3 example prompts with the base model's output vs. your fine-tuned model's output, or a metric that moved (accuracy on a held-out set, etc.) -->
+
+If you used a stock/off-the-shelf model without modification, say so plainly here — that's a legitimate and expected submission path; this section only needs the base model source and commit.
+
+---
+
 ## Constraints
 
 <!-- What hardware, connectivity, power, or data constraints shaped your choices? -->

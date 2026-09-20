@@ -18,10 +18,11 @@ Before submitting, confirm every item:
 - [ ] `download_model.sh` successfully downloads your model to `model/`
 - [ ] The downloaded file is a valid **GGUF format** (`.gguf`) weight file
 - [ ] `model/*.gguf` is listed in `.gitignore` — do **not** commit large weight files
-- [ ] `REPORT.md` is filled in with your technical writeup
+- [ ] `REPORT.md` is filled in with your technical writeup, including the **Model Provenance** section
 - [ ] Running `bash download_model.sh` completes without errors
 - [ ] Your model runs entirely **offline** — zero external network calls during inference
-- [ ] **Gate 2 only:** `REPORT.md` has a Model Provenance section, and `metadata.json`'s `model.base_model_commit_sha` is set — see [Model Provenance](#-model-provenance-gate-2)
+- [ ] **Gate 2 only:** `metadata.json`'s `provenance` object is fully filled in — base model source, base model commit SHA, fine-tuning method, and training datasets (see [Model Provenance](#-model-provenance-gate-2) below)
+- [ ] **Gate 2 only:** if `provenance.fine_tuning_method` is `lora`, `qlora`, or `full_fine_tune`, a `provenance/` folder is included with your adapter weights or training scripts, loss logs, dataset info + checksums, and merge/quantization docs
 
 ---
 
@@ -29,13 +30,19 @@ Before submitting, confirm every item:
 
 ```
 your-submission/
-├── metadata.json          ← Required. Team, model, and test prompt metadata.
+├── metadata.json          ← Required. Team, model, provenance, and test prompt metadata.
 ├── download_model.sh      ← Required. Downloads your .gguf model weight file.
-├── REPORT.md              ← Required. Technical writeup (problem, design, benchmarks).
+├── REPORT.md              ← Required. Technical writeup (problem, design, provenance, benchmarks).
 ├── model/
 │   └── your-model.gguf   ← Downloaded by the script above. Do NOT commit.
+├── provenance/             ← Required ONLY if you fine-tuned your model (LoRA/QLoRA/full fine-tune).
+│   ├── adapter_model.safetensors  ← Or your training scripts, if you did a full fine-tune.
+│   ├── training_log.txt           ← Loss curve / training log.
+│   └── dataset_info.md            ← Dataset name(s), source(s), and checksums.
 └── .gitignore             ← Must exclude *.gguf and model/ from version control.
 ```
+
+> If your model is a stock/off-the-shelf model used as-is (no fine-tuning), you do **not** need a `provenance/` folder — just fill in `provenance.base_model_source` and `provenance.base_model_commit_sha` in `metadata.json` and set `provenance.fine_tuning_method` to `"none"`.
 
 ---
 
@@ -60,6 +67,12 @@ Fill in every field. No field should remain at its placeholder value.
     "load_bearing": true,
     "description": "Brief description of how your model serves a real-world domain."
   },
+  "provenance": {
+    "base_model_source": "huggingface:org/base-model-name",
+    "base_model_commit_sha": "the-exact-commit-sha-you-started-from",
+    "fine_tuning_method": "none",
+    "training_datasets": []
+  },
   "test_prompts": [
     {
       "prompt_id": "tp_001",
@@ -75,8 +88,7 @@ Fill in every field. No field should remain at its placeholder value.
     "runtime": "llama.cpp",
     "quantization": "GGUF Q4_K_M",
     "parameters_estimate": "1.1B",
-    "packaging": "binary_bundle",
-    "base_model_commit_sha": "3fb3c9d4b0e6c4c2b8a1e2f7d5c6a9b1e8f4d2c0"
+    "packaging": "binary_bundle"
   },
   "_runtime": {
     "model_path": "model/your-model.gguf"
@@ -98,23 +110,39 @@ Fill in every field. No field should remain at its placeholder value.
 | `submitter.github_handle` | ✅ | Verifiable GitHub username |
 | `cross_disciplinary_pairing.discipline` | ✅ | The deep-tech discipline your model serves |
 | `cross_disciplinary_pairing.load_bearing` | ✅ | `true` if the pairing is integral to the submission, not cosmetic |
+| `provenance.base_model_source` | Gate 2 | Where your base model came from, e.g. `huggingface:microsoft/Phi-3-mini-4k-instruct-gguf`. If you trained from scratch, use the URL of your training repo instead. |
+| `provenance.base_model_commit_sha` | Gate 2 | The exact commit SHA of the base model repo/file you started from. **This is not necessarily the same value as the commit you pin in `download_model.sh`'s `MODEL_URL`** — see [Model Provenance](#-model-provenance-gate-2) below for the distinction. |
+| `provenance.fine_tuning_method` | Gate 2 | One of: `none` (stock model used as-is), `prompt_engineering` (no weight changes), `lora`, `qlora`, `full_fine_tune` |
+| `provenance.training_datasets` | Gate 2 | Array of dataset names/URLs used for fine-tuning. Use `[]` if `fine_tuning_method` is `none` or `prompt_engineering`. |
 | `test_prompts` | ✅ | **Exactly 2 prompts** in your chosen domain. Organizers will add 2 hidden prompts to test for overfitting. |
 | `model.runtime` | ✅ | Must be `llama.cpp`. No other runtime is accepted. |
 | `model.quantization` | ✅ | Must be a GGUF quantization format (e.g. `GGUF Q4_K_M`, `GGUF Q5_K_M`) |
 | `model.parameters_estimate` | ✅ | Approximate parameter count (e.g. `135M`, `1.1B`, `7B`) |
 | `model.packaging` | ✅ | How the model is packaged. One of: `docker_image`, `docker_build_from_repo`, `binary_bundle` |
-| `model.base_model_commit_sha` | Gate 2 | See [Model Provenance](#-model-provenance-gate-2) below. |
 | `_runtime.model_path` | ✅ | Relative path from repo root to your `.gguf` file (e.g. `model/my-model.gguf`) |
 
 ---
 
-## 🧬 Model Provenance (Gate 2)
+## 🔍 Model Provenance (Gate 2)
 
-Starting at Gate 2, `REPORT.md` must include a **Model Provenance** section disclosing the base model name and exact source (e.g. the specific Hugging Face repo and commit/revision) your model was built from, your fine-tuning method, training dataset(s), and a before/after comparison. See the Gate 2 Submission Guidelines for the full requirement.
+If you advance past Gate 1, semifinalists must fully disclose where their model came from. This is tracked in two places: the `provenance` object in `metadata.json` (structured facts) and the **Model Provenance** section of `REPORT.md` (narrative explanation, including a before/after comparison if you fine-tuned).
 
-In addition, add that same base model commit/revision to `metadata.json` as **`model.base_model_commit_sha`** (shown in the example above) — a hex commit SHA, 7–40 characters. This field is optional at the schema level (a missing value never blocks a profiler run), but is checked manually as part of the Gate 2 submission review.
+The entire `provenance` object — like everything above marked "Gate 2" — is optional at the schema level: a missing or incomplete `provenance` object never blocks a profiler run. It's a required item on the Gate 2 submission checklist, checked manually as part of that review, not something the tool enforces automatically.
 
-⚠️ **Do not confuse this with `reproducibility.git_commit_sha`** — that field doesn't belong in `metadata.json` at all; it's generated automatically by the profiler and appears only in the output report (`submission.json`/`audit.json`) it produces, tracking *your submission repo's own* commit, not your base model's. Adding a `git_commit_sha` key directly to `metadata.json` (outside `model`, or as a stand-in for `base_model_commit_sha`) will fail schema validation and abort the profiler run before any benchmark executes.
+**A note on the two "commit SHA" fields in this template — they answer different questions:**
+
+- `download_model.sh`'s `MODEL_URL` commit pin (existing requirement, unchanged) exists so the *exact file the evaluator downloads* can never silently change after judging begins.
+- `provenance.base_model_commit_sha` (new) identifies the *upstream base model version you started from*. For a stock model used as-is, these are usually the same commit. If you fine-tuned a base model and then hosted the resulting weights somewhere else (e.g. your own Hugging Face repo), they will differ — `base_model_commit_sha` points to the original base model's commit, not your fine-tuned repo's commit.
+
+⚠️ **Neither of these is `reproducibility.git_commit_sha`** — that field doesn't belong in `metadata.json` at all; it's generated automatically by the profiler and appears only in the output report (`submission.json`/`audit.json`) it produces, tracking *your submission repo's own* commit, not your model's. Adding a `git_commit_sha` key directly to `metadata.json` will fail schema validation and abort the profiler run before any benchmark executes.
+
+If `provenance.fine_tuning_method` is `none` (you used a stock/off-the-shelf model without modification), you only need to fill in `base_model_source` and `base_model_commit_sha` — no `provenance/` folder is required, and this is a fully legitimate submission path. It will, however, affect your originality score; see the challenge rules for how originality is scored.
+
+If you did fine-tune (`lora`, `qlora`, or `full_fine_tune`), include a `provenance/` folder at your repo root containing:
+- Your adapter weights (LoRA/QLoRA) or training scripts (full fine-tune)
+- A training/loss log
+- Dataset name(s), source(s), and checksums for any data used
+- Notes on any merge or quantization steps applied after training
 
 ---
 
@@ -143,8 +171,9 @@ Your technical writeup. Judges and the LLM-based audit system will read this to 
 
 1. **Problem** — What problem are you solving? Who is the target user in an African context?
 2. **Design Decisions** — What model did you start from? Why that quantization level? What alternatives did you evaluate?
-3. **Constraints** — What hardware, connectivity, or data constraints shaped your approach?
-4. **Benchmarks** — What inference speed and memory numbers did you observe on your development machine?
+3. **Model Provenance** — Base model source and commit, fine-tuning methodology (if any), training datasets used, and a before/after comparison showing what your fine-tuning changed (if `provenance.fine_tuning_method` is not `none`).
+4. **Constraints** — What hardware, connectivity, or data constraints shaped your approach?
+5. **Benchmarks** — What inference speed and memory numbers did you observe on your development machine?
 
 Keep it factual and specific. One to three pages is ideal.
 
