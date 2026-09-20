@@ -21,6 +21,7 @@ Before submitting, confirm every item:
 - [ ] `REPORT.md` is filled in with your technical writeup
 - [ ] Running `bash download_model.sh` completes without errors
 - [ ] Your model runs entirely **offline** — zero external network calls during inference
+- [ ] **Gate 2 only:** `REPORT.md` has a Model Provenance section, and `metadata.json`'s `model.base_model_commit_sha` is set — see [Model Provenance](#-model-provenance-gate-2)
 
 ---
 
@@ -74,7 +75,8 @@ Fill in every field. No field should remain at its placeholder value.
     "runtime": "llama.cpp",
     "quantization": "GGUF Q4_K_M",
     "parameters_estimate": "1.1B",
-    "packaging": "binary_bundle"
+    "packaging": "binary_bundle",
+    "base_model_commit_sha": "3fb3c9d4b0e6c4c2b8a1e2f7d5c6a9b1e8f4d2c0"
   },
   "_runtime": {
     "model_path": "model/your-model.gguf"
@@ -101,7 +103,18 @@ Fill in every field. No field should remain at its placeholder value.
 | `model.quantization` | ✅ | Must be a GGUF quantization format (e.g. `GGUF Q4_K_M`, `GGUF Q5_K_M`) |
 | `model.parameters_estimate` | ✅ | Approximate parameter count (e.g. `135M`, `1.1B`, `7B`) |
 | `model.packaging` | ✅ | How the model is packaged. One of: `docker_image`, `docker_build_from_repo`, `binary_bundle` |
+| `model.base_model_commit_sha` | Gate 2 | See [Model Provenance](#-model-provenance-gate-2) below. |
 | `_runtime.model_path` | ✅ | Relative path from repo root to your `.gguf` file (e.g. `model/my-model.gguf`) |
+
+---
+
+## 🧬 Model Provenance (Gate 2)
+
+Starting at Gate 2, `REPORT.md` must include a **Model Provenance** section disclosing the base model name and exact source (e.g. the specific Hugging Face repo and commit/revision) your model was built from, your fine-tuning method, training dataset(s), and a before/after comparison. See the Gate 2 Submission Guidelines for the full requirement.
+
+In addition, add that same base model commit/revision to `metadata.json` as **`model.base_model_commit_sha`** (shown in the example above) — a hex commit SHA, 7–40 characters. This field is optional at the schema level (a missing value never blocks a profiler run), but is checked manually as part of the Gate 2 submission review.
+
+⚠️ **Do not confuse this with `reproducibility.git_commit_sha`** — that field doesn't belong in `metadata.json` at all; it's generated automatically by the profiler and appears only in the output report (`submission.json`/`audit.json`) it produces, tracking *your submission repo's own* commit, not your base model's. Adding a `git_commit_sha` key directly to `metadata.json` (outside `model`, or as a stand-in for `base_model_commit_sha`) will fail schema validation and abort the profiler run before any benchmark executes.
 
 ---
 
