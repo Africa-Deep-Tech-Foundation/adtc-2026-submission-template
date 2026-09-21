@@ -28,7 +28,7 @@ if [[ -f "$MODEL_FILE" ]]; then
   exit 0
 fi
 
-echo "downloading $MODEL_URL → $MODEL_FILE…"
+echo "downloading $MODEL_URL → ${MODEL_FILE}…"
 
 if command -v curl > /dev/null 2>&1; then
   curl -L --fail --progress-bar -o "$MODEL_FILE.partial" "$MODEL_URL"
